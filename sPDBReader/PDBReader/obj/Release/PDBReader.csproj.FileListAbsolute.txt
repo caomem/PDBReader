@@ -1,0 +1,10 @@
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\bin\Release\PDBReader.exe.config
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\bin\Release\PDBReader.exe
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\bin\Release\PDBReader.pdb
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\obj\Release\PDBReader.csprojAssemblyReference.cache
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\obj\Release\PDBReader.fMain.resources
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\obj\Release\PDBReader.Properties.Resources.resources
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\obj\Release\PDBReader.csproj.GenerateResource.cache
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\obj\Release\PDBReader.csproj.CoreCompileInputs.cache
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\obj\Release\PDBReader.exe
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\obj\Release\PDBReader.pdb
