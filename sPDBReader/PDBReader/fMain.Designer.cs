@@ -58,6 +58,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtResidue = new System.Windows.Forms.TextBox();
             this.cbInstante = new System.Windows.Forms.CheckBox();
+            this.cbBP = new System.Windows.Forms.CheckBox();
             this.pnButton.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDis)).BeginInit();
@@ -231,7 +232,7 @@
             this.tbScale.Size = new System.Drawing.Size(39, 20);
             this.tbScale.TabIndex = 9;
             this.tbScale.Value = new decimal(new int[] {
-            5,
+            20,
             0,
             0,
             0});
@@ -239,9 +240,10 @@
             // 
             // tbDis
             // 
-            this.tbDis.Location = new System.Drawing.Point(456, 80);
+            this.tbDis.DecimalPlaces = 2;
+            this.tbDis.Location = new System.Drawing.Point(443, 79);
             this.tbDis.Name = "tbDis";
-            this.tbDis.Size = new System.Drawing.Size(39, 20);
+            this.tbDis.Size = new System.Drawing.Size(52, 20);
             this.tbDis.TabIndex = 11;
             this.tbDis.Value = new decimal(new int[] {
             5,
@@ -253,7 +255,7 @@
             // lbDis
             // 
             this.lbDis.AutoSize = true;
-            this.lbDis.Location = new System.Drawing.Point(385, 82);
+            this.lbDis.Location = new System.Drawing.Point(378, 82);
             this.lbDis.Name = "lbDis";
             this.lbDis.Size = new System.Drawing.Size(59, 13);
             this.lbDis.TabIndex = 10;
@@ -289,7 +291,7 @@
             // cbHcOrder
             // 
             this.cbHcOrder.AutoSize = true;
-            this.cbHcOrder.Location = new System.Drawing.Point(207, 108);
+            this.cbHcOrder.Location = new System.Drawing.Point(207, 131);
             this.cbHcOrder.Name = "cbHcOrder";
             this.cbHcOrder.Size = new System.Drawing.Size(87, 17);
             this.cbHcOrder.TabIndex = 15;
@@ -308,8 +310,7 @@
             this.cbOutput.Items.AddRange(new object[] {
             "XML",
             "Matrix",
-            "JSON",
-            "BP"});
+            "JSON"});
             this.cbOutput.Location = new System.Drawing.Point(124, 105);
             this.cbOutput.Name = "cbOutput";
             this.cbOutput.Size = new System.Drawing.Size(79, 21);
@@ -327,27 +328,28 @@
             // cbChainMark
             // 
             this.cbChainMark.AutoSize = true;
-            this.cbChainMark.Location = new System.Drawing.Point(296, 108);
+            this.cbChainMark.Enabled = false;
+            this.cbChainMark.Location = new System.Drawing.Point(304, 107);
             this.cbChainMark.Name = "cbChainMark";
             this.cbChainMark.Size = new System.Drawing.Size(79, 17);
             this.cbChainMark.TabIndex = 18;
             this.cbChainMark.Text = "Chain View";
             this.cbChainMark.UseVisualStyleBackColor = true;
-            this.cbChainMark.Visible = false;
             this.cbChainMark.CheckedChanged += new System.EventHandler(this.cbChainMark_CheckedChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(204, 133);
+            this.label3.Location = new System.Drawing.Point(293, 133);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 13);
             this.label3.TabIndex = 20;
             this.label3.Text = "AminoId:";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // txtResId
             // 
-            this.txtResId.Location = new System.Drawing.Point(253, 130);
+            this.txtResId.Location = new System.Drawing.Point(342, 130);
             this.txtResId.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -377,13 +379,23 @@
             // cbInstante
             // 
             this.cbInstante.AutoSize = true;
-            this.cbInstante.Location = new System.Drawing.Point(377, 107);
+            this.cbInstante.Enabled = false;
+            this.cbInstante.Location = new System.Drawing.Point(386, 108);
             this.cbInstante.Name = "cbInstante";
-            this.cbInstante.Size = new System.Drawing.Size(102, 17);
+            this.cbInstante.Size = new System.Drawing.Size(96, 17);
             this.cbInstante.TabIndex = 24;
-            this.cbInstante.Text = "Instante Update";
+            this.cbInstante.Text = "Instant Update";
             this.cbInstante.UseVisualStyleBackColor = true;
-            this.cbInstante.Visible = false;
+            // 
+            // cbBP
+            // 
+            this.cbBP.AutoSize = true;
+            this.cbBP.Location = new System.Drawing.Point(207, 107);
+            this.cbBP.Name = "cbBP";
+            this.cbBP.Size = new System.Drawing.Size(93, 17);
+            this.cbBP.TabIndex = 25;
+            this.cbBP.Text = "Output  for BP";
+            this.cbBP.UseVisualStyleBackColor = true;
             // 
             // fMain
             // 
@@ -391,12 +403,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(727, 213);
+            this.Controls.Add(this.cbChainMark);
+            this.Controls.Add(this.cbBP);
             this.Controls.Add(this.cbInstante);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtResidue);
             this.Controls.Add(this.txtResId);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.cbChainMark);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbOutput);
             this.Controls.Add(this.cbHcOrder);
@@ -458,6 +471,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtResidue;
         private System.Windows.Forms.CheckBox cbInstante;
+        private System.Windows.Forms.CheckBox cbBP;
     }
 }
 

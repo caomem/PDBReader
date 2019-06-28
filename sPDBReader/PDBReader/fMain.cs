@@ -319,8 +319,6 @@ namespace PDBReader
                 btDetails.Visible = true;
                 btNear.Visible = true;
                 btHc.Visible = true;
-                cbChainMark.Visible = true;
-                cbInstante.Visible = true;
 
                 pnVisualization.Tag = 0;
                 if (atoms.Count == 0)
@@ -345,8 +343,6 @@ namespace PDBReader
                 btDetails.Visible = false;
                 btNear.Visible = false;
                 btHc.Visible = false;
-                cbInstante.Visible = false;
-                cbChainMark.Visible = false;
 
                 Graphics graphics = pnVisualization.CreateGraphics();
                 graphics.Clear(Color.Gray);
@@ -354,6 +350,10 @@ namespace PDBReader
                 if (string.IsNullOrWhiteSpace(cbConvertFile.Text)) return;
                 if (cbOutput.SelectedItem == cbOutput.Items[0])
                 {
+                    if (cbBP.Checked)
+                    {
+                        MessageBox.Show("Sorry, BP is not implemented for XML", "Alert");
+                    }
                     try
                     {
                         XmlDocument xmlDocument = new XmlDocument();
@@ -373,55 +373,96 @@ namespace PDBReader
                 }
                 else if (cbOutput.SelectedItem == cbOutput.Items[1])
                 {
-                    string file = "PDB = [";
-                    bool first = true;
-                    foreach (Atom a in atoms)
+                    if (cbBP.Checked)
                     {
-                        if (first) first = false; else file += ";";
-                        file += a.X.ToString(new CultureInfo("en-US")) + " " + a.Y.ToString(new CultureInfo("en-US")) + " " + a.Z.ToString(new CultureInfo("en-US"));
+                        List<Atom> atomsSingle = new List<Atom>();
+                        for (int i = 0; i < atoms.Count; i++)
+                        {
+                            if (atoms.IndexOf(atoms.ElementAt(i)) < i) continue;
+                            atomsSingle.Add(atoms.ElementAt(i));
+                        }
+                        StringBuilder file = new StringBuilder();
+                        file.Append("E = [");
+                        bool first = true;
+                        int current = 0;
+                        for (int i = 0; i < atomsSingle.Count; i++)
+                        {
+                            if (first) first = false; else file.Append(";");
+                            List<Atom> neighbors = new List<Atom>();
+                            current = atoms.IndexOf(atomsSingle.ElementAt(i));
+                            for (int j = 1; j < 4 && i - j >= 0; j++)
+                            {
+                                neighbors.Add(atoms.ElementAt(current - j));
+                            }
+                            foreach (Atom a in atomsSingle)
+                            {
+                                if (neighbors.Exists(aux => aux == a))
+                                    file.Append(" " + atomsSingle.ElementAt(i).Distance(a).ToString(new CultureInfo("en-US")));
+                                else file.Append(" 0");
+                            }
+                        }
+                        file.Append("]");
+                        File.WriteAllText(cbConvertFile.Text, file.ToString());
                     }
-                    file += "]";
-                    File.WriteAllText(cbConvertFile.Text, file);
+                    else
+                    {
+                        string file = "PDB = [";
+                        bool first = true;
+                        foreach (Atom a in atoms)
+                        {
+                            if (first) first = false; else file += ";";
+                            file += a.X.ToString(new CultureInfo("en-US")) + " " + a.Y.ToString(new CultureInfo("en-US")) + " " + a.Z.ToString(new CultureInfo("en-US"));
+                        }
+                        file += "]";
+                        File.WriteAllText(cbConvertFile.Text, file);
+                    }
                 }
                 else if (cbOutput.SelectedItem == cbOutput.Items[2])
                 {
-                    string file = "{\"atoms\":[";
-                    bool first = true;
-                    foreach (Atom a in atoms)
+                    if (cbBP.Checked)
                     {
-                        if (first) first = false; else file += ",";
-                        file += "{\"name\":\"" + a.Name + "\",\"position\":{\"x\":" + a.X.ToString(new CultureInfo("en-US")) + ",\"y\":" + a.Y.ToString(new CultureInfo("en-US")) + ",\"z\":" + a.Z.ToString(new CultureInfo("en-US")) + "}}";
-                    }
-                    file += "]}";
-                    File.WriteAllText(cbConvertFile.Text, file);
-                }
-                else if (cbOutput.SelectedItem == cbOutput.Items[3])
-                {
-                    string file = "{\"BP\":{";
-                    file += "V:[";
-                    bool first = true;
-                    foreach (Atom a in atoms)
-                    {
-                        if (first) first = false; else file += ",";
-                        file += "{\"Vi\":\"" + "v"+atoms.IndexOf(a) +"\"}";
-                    }
-                    file += "],E:[";
-                    first = true;
-                    int current = 0;
-                    for (int i = 0; i < atoms.Count; i++)
-                    {
-                        if (atoms.IndexOf(atoms.ElementAt(i)) < i) continue;
-                        int j = 0;
-                        while (i-(++j) >= 0 && j < 5) //j<4 for last tree atoms
+                        List<Atom> atomsSingle = new List<Atom>();
+                        for (int i = 0; i < atoms.Count; i++)
+                        {
+                            if (atoms.IndexOf(atoms.ElementAt(i)) < i) continue;
+                            atomsSingle.Add(atoms.ElementAt(i));
+                        }
+                        string file = "{\"BP\":{";
+                        file += "V:[";
+                        bool first = true;
+                        foreach (Atom a in atoms)
                         {
                             if (first) first = false; else file += ",";
-                            current = atoms.IndexOf(atoms.ElementAt(i));
-                            file += "{\"v"+current+",v"+atoms.IndexOf(atoms.ElementAt(i-j))+
-                                "\":"+ atoms.ElementAt(i).Distance(atoms.ElementAt(i-j))+"}";
+                            file += "{\"Vi\":\"" + "v" + atomsSingle.IndexOf(a) + "\"}";
                         }
+                        file += "],E:[";
+                        first = true;
+                        int current = 0;
+                        for (int i = 0; i < atomsSingle.Count; i++)
+                        {
+                            current = atoms.IndexOf(atomsSingle.ElementAt(i));
+                            for (int j = 1; j < 4 && i-j>=0; j++)
+                            {
+                                if (first) first = false; else file += ",";
+                                file += "{\"v" + i + ",v" + atomsSingle.IndexOf(atoms.ElementAt(current - j)) +
+                                    "\":" + atomsSingle.ElementAt(i).Distance(atoms.ElementAt(current - j)).ToString(new CultureInfo("en-US")) + "}";
+                            }
+                        }
+                        file += "]}}";
+                        File.WriteAllText(cbConvertFile.Text, file);
                     }
-                    file += "]}}";
-                    File.WriteAllText(cbConvertFile.Text, file);
+                    else
+                    {
+                        string file = "{\"atoms\":[";
+                        bool first = true;
+                        foreach (Atom a in atoms)
+                        {
+                            if (first) first = false; else file += ",";
+                            file += "{\"name\":\"" + a.Name + "\",\"position\":{\"x\":" + a.X.ToString(new CultureInfo("en-US")) + ",\"y\":" + a.Y.ToString(new CultureInfo("en-US")) + ",\"z\":" + a.Z.ToString(new CultureInfo("en-US")) + "}}";
+                        }
+                        file += "]}";
+                        File.WriteAllText(cbConvertFile.Text, file);
+                    }
                 }
             }
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -454,10 +495,18 @@ namespace PDBReader
             if (cbView.Checked)
             {
                 tbScale.Enabled = true;
+                cbInstante.Enabled = true;
+                cbChainMark.Enabled = true;
+                cbOutput.Enabled = false;
+                cbBP.Enabled = false;
             }
             else
             {
                 tbScale.Enabled = false;
+                cbInstante.Enabled = false;
+                cbChainMark.Enabled = false;
+                cbOutput.Enabled = true;
+                cbBP.Enabled = true;
             }
         }
 
@@ -472,8 +521,8 @@ namespace PDBReader
             foreach (var a in atoms)
             {
                 if (a.Equals(atom)) continue;
-                double d = atom.Distance(a);
-                if (d < (int)tbDis.Value)
+                if (validAtoms.Exists(temp => temp.Equals(a))) continue;
+                if (atom.Distance(a) < (double)tbDis.Value && (txtResId.Value == 0 || a.ResSeq == txtResId.Value))
                 {
                     validAtoms.Add(a);
                 }
@@ -517,6 +566,10 @@ namespace PDBReader
             pnVisualization.Tag = (int)pnVisualization.Tag - 1;
             if ((int)pnVisualization.Tag == 0) btBefore.Enabled = false;
 
+            if (txtResId.Value != 0)
+            {
+                txtResId.Value = atoms.ElementAt((int)pnVisualization.Tag).ResSeq;
+            }
             updateView(atoms.ElementAt((int)pnVisualization.Tag));
         }
 
@@ -865,6 +918,11 @@ namespace PDBReader
         private void fMain_SizeChanged(object sender, EventArgs e)
         {
             pnVisualization.Size = new Size(this.Size.Width-pnVisualization.Location.X-23, this.Size.Height - pnVisualization.Location.Y - 48);
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

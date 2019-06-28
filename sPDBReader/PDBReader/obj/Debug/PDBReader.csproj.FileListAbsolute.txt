@@ -18,3 +18,13 @@ C:\Users\Bruno\Google Drive\IC - Guilherme Philippi\main\Seminários\2018.10.02\
 C:\Users\Bruno\Google Drive\IC - Guilherme Philippi\main\Seminários\2018.10.02\sPDBReader\PDBReader\obj\Debug\PDBReader.csproj.CoreCompileInputs.cache
 C:\Users\Bruno\Google Drive\IC - Guilherme Philippi\main\Seminários\2018.10.02\sPDBReader\PDBReader\obj\Debug\PDBReader.exe
 C:\Users\Bruno\Google Drive\IC - Guilherme Philippi\main\Seminários\2018.10.02\sPDBReader\PDBReader\obj\Debug\PDBReader.pdb
+G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\bin\Debug\PDBReader.exe.config
+G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\bin\Debug\PDBReader.exe
+G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\bin\Debug\PDBReader.pdb
+G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\Debug\PDBReader.csprojAssemblyReference.cache
+G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\Debug\PDBReader.fMain.resources
+G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\Debug\PDBReader.Properties.Resources.resources
+G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\Debug\PDBReader.csproj.GenerateResource.cache
+G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\Debug\PDBReader.csproj.CoreCompileInputs.cache
+G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\Debug\PDBReader.exe
+G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\Debug\PDBReader.pdb
