@@ -375,6 +375,7 @@ namespace PDBReader
                 {
                     if (cbBP.Checked)
                     {
+                        /*
                         List<Atom> atomsSingle = new List<Atom>();
                         for (int i = 0; i < atoms.Count; i++)
                         {
@@ -390,14 +391,36 @@ namespace PDBReader
                             if (first) first = false; else file.Append(";");
                             List<Atom> neighbors = new List<Atom>();
                             current = atoms.IndexOf(atomsSingle.ElementAt(i));
-                            for (int j = 1; j < 4 && i - j >= 0; j++)
+                            for (int j = 1; current - j >= 0; j++)
                             {
-                                neighbors.Add(atoms.ElementAt(current - j));
+                                if (atoms.ElementAt(current - j).Distance(atomsSingle.ElementAt(i)) < (double)tbDis.Value)
+                                    neighbors.Add(atoms.ElementAt(current - j));
                             }
                             foreach (Atom a in atomsSingle)
                             {
                                 if (neighbors.Exists(aux => aux == a))
-                                    file.Append(" " + atomsSingle.ElementAt(i).Distance(a).ToString(new CultureInfo("en-US")));
+                                    file.Append(" {" + i + ", " + atomsSingle.IndexOf(a) + " " + atomsSingle.ElementAt(i).Distance(a).ToString(new CultureInfo("en-US")) + "}");
+                                else file.Append(" 0");
+                            }
+                        }*/
+
+                        List<Atom> atomsSingle = new List<Atom>();
+                        for (int i = 0; i < atoms.Count; i++)
+                        {
+                            if (atoms.IndexOf(atoms.ElementAt(i)) < i) continue;
+                            atomsSingle.Add(atoms.ElementAt(i));
+                        }
+                        StringBuilder file = new StringBuilder();
+                        file.Append("E = [");
+                        bool first = true;
+                        foreach (Atom ai in atoms)
+                        {
+                            if (first) first = false; else file.Append(";");
+                            foreach (Atom aj in atoms)
+                            {
+                                if (ai.Distance(aj) < (double)tbDis.Value)
+                                    //file.Append(" {" + atomsSingle.IndexOf(ai) + ", " + atomsSingle.IndexOf(aj) + " " + ai.Distance(aj).ToString(new CultureInfo("en-US")) + "}");
+                                    file.Append(" "+ ai.Distance(aj).ToString(new CultureInfo("en-US")));
                                 else file.Append(" 0");
                             }
                         }
@@ -461,6 +484,42 @@ namespace PDBReader
                             file += "{\"name\":\"" + a.Name + "\",\"position\":{\"x\":" + a.X.ToString(new CultureInfo("en-US")) + ",\"y\":" + a.Y.ToString(new CultureInfo("en-US")) + ",\"z\":" + a.Z.ToString(new CultureInfo("en-US")) + "}}";
                         }
                         file += "]}";
+                        File.WriteAllText(cbConvertFile.Text, file);
+                    }
+                }
+                else if (cbOutput.SelectedItem == cbOutput.Items[3])
+                {
+                    if (cbBP.Checked)
+                    {
+                        List<Atom> atomsSingle = new List<Atom>();
+                        for (int i = 0; i < atoms.Count; i++)
+                        {
+                            if (atoms.IndexOf(atoms.ElementAt(i)) < i) continue;
+                            atomsSingle.Add(atoms.ElementAt(i));
+                        }
+                        StringBuilder file = new StringBuilder();
+                        bool first = true;
+                        foreach (Atom ai in atoms)
+                        {
+                            if (first) first = false; else file.Append("\r\n");
+                            bool first2 = true;
+                            foreach (Atom aj in atoms)
+                            {
+                                if (first2) first2 = false; else file.Append("\t");
+                                file.Append(ai.Distance(aj).ToString(new CultureInfo("en-US")));
+                            }
+                        }
+                        File.WriteAllText(cbConvertFile.Text, file.ToString());
+                    }
+                    else
+                    {
+                        string file = "";
+                        bool first = true;
+                        foreach (Atom a in atoms)
+                        {
+                            if (first) first = false; else file += "\r\n";
+                            file += a.X.ToString(new CultureInfo("en-US")) + " " + a.Y.ToString(new CultureInfo("en-US")) + " " + a.Z.ToString(new CultureInfo("en-US"));
+                        }
                         File.WriteAllText(cbConvertFile.Text, file);
                     }
                 }
