@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PDBReader.classes.AminoAcid" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAACAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>classes\AminoAcid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PDBReader.classes.AminoAcidAtomMethods" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAABAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>classes\AminoAcid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PDBReader.classes.Atom" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAIAJAAAAARAAgAGAAgAEAQIALAEAABAAABgAUACYKE=</HashCode>
+      <FileName>classes\Atom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PDBReader.fMain" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FBUBEBRKXCCgCFQjAAKIAwQGBBAgIQAAsAMAEAAABAQ=</HashCode>
+      <FileName>fMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PDBReader.Program" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PDBReader.Properties.Resources" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PDBReader.Properties.Settings" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="PDBReader.classes.AminoAcidName" Collapsed="true">
+    <Position X="2.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABEAkABEAAAAAAAAAAACRACAABAgAIACAgAQEAIACI=</HashCode>
+      <FileName>classes\AminoAcid.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PDBReader.classes.AminoAcidAtom" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgEAAAAAkAAAAAAAAAAUAAAAAAAAAAAAAgFgAgQA=</HashCode>
+      <FileName>classes\AminoAcid.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

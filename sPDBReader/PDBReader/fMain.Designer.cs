@@ -311,7 +311,10 @@
             "XML",
             "Matrix",
             "JSON",
-            "MolConf"});
+            "MolConf",
+            "xyz",
+            "MD-jeep",
+            "VirtualNode"});
             this.cbOutput.Location = new System.Drawing.Point(124, 105);
             this.cbOutput.Name = "cbOutput";
             this.cbOutput.Size = new System.Drawing.Size(79, 21);
@@ -430,7 +433,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Protein Data Bank Reader (PDBReader)";
+            this.Text = "HCProt";
             this.SizeChanged += new System.EventHandler(this.fMain_SizeChanged);
             this.pnButton.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbScale)).EndInit();

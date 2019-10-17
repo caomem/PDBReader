@@ -309,6 +309,17 @@ namespace PDBReader
                     currentResidue.Add(atom);
                 }
                 atoms = new List<Atom>(chainReOrder);
+                for (int i = 3; i < atoms.Count; i++)
+                {
+                    if (Math.Pow(atoms.ElementAt(i - 3).Distance(atoms.ElementAt(i - 2)) + atoms.ElementAt(i - 2).Distance(atoms.ElementAt(i - 1)) - atoms.ElementAt(i - 3).Distance(atoms.ElementAt(i - 1)), 2) < 0.001 
+                        || atoms.ElementAt(i-3).Distance(atoms.ElementAt(i-1)) > atoms.ElementAt(i-3).Distance(atoms.ElementAt(i-2)) + atoms.ElementAt(i - 2).Distance(atoms.ElementAt(i - 1)))
+                    {
+                        MessageBox.Show("Atoms "+(i-3)+", "+(i-2)+" and "+(i-1)+" are coplanar\n\t d(i-3,i-1) <= d(i-3,i-2) + d(i-2,i-1) => "+ 
+                            atoms.ElementAt(i - 3).Distance(atoms.ElementAt(i - 1)) + " <= "+ atoms.ElementAt(i - 3).Distance(atoms.ElementAt(i - 2)) + " + " + atoms.ElementAt(i - 2).Distance(atoms.ElementAt(i - 1)) +
+                            "\n"+atoms.ElementAt(i-3)+"\n"+atoms.ElementAt(i-1),"Error");
+                        return;
+                    }
+                }
             }
 
             if (cbView.Checked)
@@ -375,35 +386,6 @@ namespace PDBReader
                 {
                     if (cbBP.Checked)
                     {
-                        /*
-                        List<Atom> atomsSingle = new List<Atom>();
-                        for (int i = 0; i < atoms.Count; i++)
-                        {
-                            if (atoms.IndexOf(atoms.ElementAt(i)) < i) continue;
-                            atomsSingle.Add(atoms.ElementAt(i));
-                        }
-                        StringBuilder file = new StringBuilder();
-                        file.Append("E = [");
-                        bool first = true;
-                        int current = 0;
-                        for (int i = 0; i < atomsSingle.Count; i++)
-                        {
-                            if (first) first = false; else file.Append(";");
-                            List<Atom> neighbors = new List<Atom>();
-                            current = atoms.IndexOf(atomsSingle.ElementAt(i));
-                            for (int j = 1; current - j >= 0; j++)
-                            {
-                                if (atoms.ElementAt(current - j).Distance(atomsSingle.ElementAt(i)) < (double)tbDis.Value)
-                                    neighbors.Add(atoms.ElementAt(current - j));
-                            }
-                            foreach (Atom a in atomsSingle)
-                            {
-                                if (neighbors.Exists(aux => aux == a))
-                                    file.Append(" {" + i + ", " + atomsSingle.IndexOf(a) + " " + atomsSingle.ElementAt(i).Distance(a).ToString(new CultureInfo("en-US")) + "}");
-                                else file.Append(" 0");
-                            }
-                        }*/
-
                         List<Atom> atomsSingle = new List<Atom>();
                         for (int i = 0; i < atoms.Count; i++)
                         {
@@ -420,7 +402,7 @@ namespace PDBReader
                             {
                                 if (ai.Distance(aj) < (double)tbDis.Value)
                                     //file.Append(" {" + atomsSingle.IndexOf(ai) + ", " + atomsSingle.IndexOf(aj) + " " + ai.Distance(aj).ToString(new CultureInfo("en-US")) + "}");
-                                    file.Append(" "+ ai.Distance(aj).ToString(new CultureInfo("en-US")));
+                                    file.Append(" " + ai.Distance(aj).ToString(new CultureInfo("en-US")));
                                 else file.Append(" 0");
                             }
                         }
@@ -429,15 +411,16 @@ namespace PDBReader
                     }
                     else
                     {
-                        string file = "PDB = [";
+                        StringBuilder file = new StringBuilder();
+                        file.Append("PDB = [");
                         bool first = true;
                         foreach (Atom a in atoms)
                         {
-                            if (first) first = false; else file += ";";
-                            file += a.X.ToString(new CultureInfo("en-US")) + " " + a.Y.ToString(new CultureInfo("en-US")) + " " + a.Z.ToString(new CultureInfo("en-US"));
+                            if (first) first = false; else file.Append(";");
+                            file.Append(a.X.ToString(new CultureInfo("en-US")) + " " + a.Y.ToString(new CultureInfo("en-US")) + " " + a.Z.ToString(new CultureInfo("en-US")));
                         }
-                        file += "]";
-                        File.WriteAllText(cbConvertFile.Text, file);
+                        file.Append("]");
+                        File.WriteAllText(cbConvertFile.Text, file.ToString());
                     }
                 }
                 else if (cbOutput.SelectedItem == cbOutput.Items[2])
@@ -450,41 +433,43 @@ namespace PDBReader
                             if (atoms.IndexOf(atoms.ElementAt(i)) < i) continue;
                             atomsSingle.Add(atoms.ElementAt(i));
                         }
-                        string file = "{\"BP\":{";
-                        file += "V:[";
+                        StringBuilder file = new StringBuilder();
+                        file.Append("{\"BP\":{");
+                        file.Append("V:[");
                         bool first = true;
                         foreach (Atom a in atoms)
                         {
-                            if (first) first = false; else file += ",";
-                            file += "{\"Vi\":\"" + "v" + atomsSingle.IndexOf(a) + "\"}";
+                            if (first) first = false; else file.Append(",");
+                            file.Append("{\"Vi\":\"" + "v" + atomsSingle.IndexOf(a) + "\"}");
                         }
-                        file += "],E:[";
+                        file.Append("],E:[");
                         first = true;
                         int current = 0;
                         for (int i = 0; i < atomsSingle.Count; i++)
                         {
                             current = atoms.IndexOf(atomsSingle.ElementAt(i));
-                            for (int j = 1; j < 4 && i-j>=0; j++)
+                            for (int j = 1; j < 4 && i - j >= 0; j++)
                             {
-                                if (first) first = false; else file += ",";
-                                file += "{\"v" + i + ",v" + atomsSingle.IndexOf(atoms.ElementAt(current - j)) +
-                                    "\":" + atomsSingle.ElementAt(i).Distance(atoms.ElementAt(current - j)).ToString(new CultureInfo("en-US")) + "}";
+                                if (first) first = false; else file.Append(",");
+                                file.Append("{\"v" + i + ",v" + atomsSingle.IndexOf(atoms.ElementAt(current - j)) +
+                                    "\":" + atomsSingle.ElementAt(i).Distance(atoms.ElementAt(current - j)).ToString(new CultureInfo("en-US")) + "}");
                             }
                         }
-                        file += "]}}";
-                        File.WriteAllText(cbConvertFile.Text, file);
+                        file.Append("]}}");
+                        File.WriteAllText(cbConvertFile.Text, file.ToString());
                     }
                     else
                     {
-                        string file = "{\"atoms\":[";
+                        StringBuilder file = new StringBuilder();
+                        file.Append("{\"atoms\":[");
                         bool first = true;
                         foreach (Atom a in atoms)
                         {
-                            if (first) first = false; else file += ",";
-                            file += "{\"name\":\"" + a.Name + "\",\"position\":{\"x\":" + a.X.ToString(new CultureInfo("en-US")) + ",\"y\":" + a.Y.ToString(new CultureInfo("en-US")) + ",\"z\":" + a.Z.ToString(new CultureInfo("en-US")) + "}}";
+                            if (first) first = false; else file.Append(",");
+                            file.Append("{\"name\":\"" + a.Name + "\",\"position\":{\"x\":" + a.X.ToString(new CultureInfo("en-US")) + ",\"y\":" + a.Y.ToString(new CultureInfo("en-US")) + ",\"z\":" + a.Z.ToString(new CultureInfo("en-US")) + "}}");
                         }
-                        file += "]}";
-                        File.WriteAllText(cbConvertFile.Text, file);
+                        file.Append("]}");
+                        File.WriteAllText(cbConvertFile.Text, file.ToString());
                     }
                 }
                 else if (cbOutput.SelectedItem == cbOutput.Items[3])
@@ -513,14 +498,110 @@ namespace PDBReader
                     }
                     else
                     {
-                        string file = "";
+                        StringBuilder file = new StringBuilder();
                         bool first = true;
                         foreach (Atom a in atoms)
                         {
-                            if (first) first = false; else file += "\r\n";
-                            file += a.X.ToString(new CultureInfo("en-US")) + " " + a.Y.ToString(new CultureInfo("en-US")) + " " + a.Z.ToString(new CultureInfo("en-US"));
+                            if (first) first = false; else file.Append("\r\n");
+                            file.Append(a.X.ToString(new CultureInfo("en-US")) + " " + a.Y.ToString(new CultureInfo("en-US")) + " " + a.Z.ToString(new CultureInfo("en-US")));
                         }
-                        File.WriteAllText(cbConvertFile.Text, file);
+                        File.WriteAllText(cbConvertFile.Text, file.ToString());
+                    }
+                }
+                else if (cbOutput.SelectedItem == cbOutput.Items[4])
+                {
+                    if (cbBP.Checked)
+                    {
+                        if (cbBP.Checked)
+                        {
+                            MessageBox.Show("Sorry, BP is not implemented for xyz", "Alert");
+                        }
+                    }
+                    else
+                    {
+                        StringBuilder file = new StringBuilder();
+                        bool first = true;
+                        foreach (Atom a in atoms)
+                        {
+                            if (first) first = false; else file.Append("\n");
+                            file.Append(a.X.ToString(new CultureInfo("en-US")) + " " + a.Y.ToString(new CultureInfo("en-US")) + " " + a.Z.ToString(new CultureInfo("en-US")));
+                        }
+                        File.WriteAllText(cbConvertFile.Text, file.ToString());
+                    }
+                }
+                else if (cbOutput.SelectedItem == cbOutput.Items[5])
+                {
+                    if (!cbBP.Checked)
+                    {
+                        MessageBox.Show("Only BP configuration is implemented for MD-jeep", "Alert");
+                    }
+                    int i = 1;
+                    StringBuilder file = new StringBuilder();
+                    bool first = true;
+                    foreach (Atom ai in atoms)
+                    {
+                        int j = 1;
+                        foreach (Atom aj in atoms)
+                        {
+                            if (first) first = false; else file.Append("\r\n");
+                            file.Append(i.ToString().PadLeft(5, ' ') + j.ToString().PadLeft(5, ' ') + " " +
+                                atoms.ElementAt(i).ResSeq.ToString().PadLeft(5, ' ') + atoms.ElementAt(j).ResSeq.ToString().PadLeft(5, ' ') + " " +
+                                atoms.ElementAt(i).Distance(atoms.ElementAt(j)).ToString(new CultureInfo("en-US")).PadLeft(21, ' ') +
+                                atoms.ElementAt(i).Distance(atoms.ElementAt(j)).ToString(new CultureInfo("en-US")).PadLeft(21, ' ') + "  " +
+                                atoms.ElementAt(i).Name.PadRight(4, ' ') + " " + atoms.ElementAt(j).Name.PadRight(4, ' ') + "  " +
+                                atoms.ElementAt(i).ResName.PadRight(4, ' ') + " " + atoms.ElementAt(j).ResName.PadRight(4, ' '));
+                            j++;
+                        }
+                        i++;
+                    }
+                    /* int current = 0;
+                     for (int i = 0; i < atomsSingle.Count; i++)
+                     {
+                         current = atoms.IndexOf(atomsSingle.ElementAt(i));
+                         for (int j = 1; j < 4 && i - j >= 0; j++)
+                         {
+                             if (first) first = false; else file.Append("\r\n");
+                             file.Append((i + 1).ToString().PadLeft(5, ' ') + (atomsSingle.IndexOf(atoms.ElementAt(current - j)) + 1).ToString().PadLeft(5, ' ') + " " +
+                                 atomsSingle.ElementAt(i).ResSeq.ToString().PadLeft(5, ' ') + atoms.ElementAt(current - j).ResSeq.ToString().PadLeft(5, ' ') + " " +
+                                 atomsSingle.ElementAt(i).Distance(atoms.ElementAt(current - j)).ToString(new CultureInfo("en-US")).PadLeft(21, ' ') +
+                                 atomsSingle.ElementAt(i).Distance(atoms.ElementAt(current - j)).ToString(new CultureInfo("en-US")).PadLeft(21, ' ') + "  " +
+                                 atomsSingle.ElementAt(i).Name.PadRight(4, ' ') + " " + atoms.ElementAt(current - j).Name.PadRight(4, ' ') + "  " +
+                                 atomsSingle.ElementAt(i).ResName.PadRight(4, ' ') + " " + atoms.ElementAt(current - j).ResName.PadRight(4, ' '));
+                         }
+                         /*if (atomsSingle.ElementAt(i).Name == "HA")
+                         {
+                             int j = (atomsSingle.ElementAt(i).ResSeq == 1) ? i - 4 : i-5;
+                             //MessageBox.Show(i+" Test "+j.ToString());
+                             if (first) first = false; else file.Append("\r\n");
+                             file.Append((i + 1).ToString().PadLeft(5, ' ') + (atomsSingle.IndexOf(atoms.ElementAt(current - j)) + 1).ToString().PadLeft(5, ' ') + " " +
+                                 atomsSingle.ElementAt(i).ResSeq.ToString().PadLeft(5, ' ') + atoms.ElementAt(current - j).ResSeq.ToString().PadLeft(5, ' ') + " " +
+                                 atomsSingle.ElementAt(i).Distance(atoms.ElementAt(current - j)).ToString(new CultureInfo("en-US")).PadLeft(21, ' ') +
+                                 atomsSingle.ElementAt(i).Distance(atoms.ElementAt(current - j)).ToString(new CultureInfo("en-US")).PadLeft(21, ' ') + "  " +
+                                 atomsSingle.ElementAt(i).Name.PadRight(4, ' ') + " " + atoms.ElementAt(current - j).Name.PadRight(4, ' ') + "  " +
+                                 atomsSingle.ElementAt(i).ResName.PadRight(4, ' ') + " " + atoms.ElementAt(current - j).ResName.PadRight(4, ' '));
+                         }
+                    }*/
+
+                    File.WriteAllText(cbConvertFile.Text, file.ToString());
+                }
+                else if (cbOutput.SelectedItem == cbOutput.Items[6])
+                {
+                    if (cbBP.Checked)
+                    {
+                        List<Atom> atomsSingle = new List<Atom>();
+                        for (int i = 0; i < atoms.Count; i++)
+                        {
+                            if (atoms.IndexOf(atoms.ElementAt(i)) < i) continue;
+                            atomsSingle.Add(atoms.ElementAt(i));
+                        }
+                        StringBuilder file = new StringBuilder();
+                        bool first = true;
+                        foreach (Atom atom in atoms)
+                        {
+                            if (first) first = false; else file.Append(" ");
+                            file.Append((atomsSingle.IndexOf(atom)+1).ToString());
+                        }
+                        File.WriteAllText(cbConvertFile.Text, file.ToString());
                     }
                 }
             }
