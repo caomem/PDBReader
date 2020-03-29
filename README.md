@@ -1,5 +1,4 @@
-# PDBReader
- Welcome to the PDBReader project
+# Welcome to the HCProt project
 
  This project has as objective to facilitate the read of files extracted of Protein Data Bank.
 
