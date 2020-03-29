@@ -59,6 +59,7 @@
             this.txtResidue = new System.Windows.Forms.TextBox();
             this.cbInstante = new System.Windows.Forms.CheckBox();
             this.cbBP = new System.Windows.Forms.CheckBox();
+            this.cbToy = new System.Windows.Forms.CheckBox();
             this.pnButton.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDis)).BeginInit();
@@ -278,6 +279,7 @@
             this.txtFilter.Name = "txtFilter";
             this.txtFilter.Size = new System.Drawing.Size(36, 20);
             this.txtFilter.TabIndex = 13;
+            this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             // 
             // lbFilter
             // 
@@ -319,6 +321,7 @@
             this.cbOutput.Name = "cbOutput";
             this.cbOutput.Size = new System.Drawing.Size(79, 21);
             this.cbOutput.TabIndex = 16;
+            this.cbOutput.SelectedIndexChanged += new System.EventHandler(this.cbOutput_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -384,7 +387,7 @@
             // 
             this.cbInstante.AutoSize = true;
             this.cbInstante.Enabled = false;
-            this.cbInstante.Location = new System.Drawing.Point(386, 108);
+            this.cbInstante.Location = new System.Drawing.Point(392, 108);
             this.cbInstante.Name = "cbInstante";
             this.cbInstante.Size = new System.Drawing.Size(96, 17);
             this.cbInstante.TabIndex = 24;
@@ -401,12 +404,23 @@
             this.cbBP.Text = "Output  for BP";
             this.cbBP.UseVisualStyleBackColor = true;
             // 
+            // cbToy
+            // 
+            this.cbToy.AutoSize = true;
+            this.cbToy.Location = new System.Drawing.Point(392, 131);
+            this.cbToy.Name = "cbToy";
+            this.cbToy.Size = new System.Drawing.Size(82, 17);
+            this.cbToy.TabIndex = 26;
+            this.cbToy.Text = "ToyProblem";
+            this.cbToy.UseVisualStyleBackColor = true;
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(727, 213);
+            this.Controls.Add(this.cbToy);
             this.Controls.Add(this.cbChainMark);
             this.Controls.Add(this.cbBP);
             this.Controls.Add(this.cbInstante);
@@ -476,6 +490,7 @@
         private System.Windows.Forms.TextBox txtResidue;
         private System.Windows.Forms.CheckBox cbInstante;
         private System.Windows.Forms.CheckBox cbBP;
+        private System.Windows.Forms.CheckBox cbToy;
     }
 }
 
