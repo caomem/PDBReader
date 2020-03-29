@@ -157,6 +157,43 @@ namespace PDBReader.classes
         }
 
         /// <summary>
+        /// Returns the distance between two atoms in a determined sequence
+        /// </summary>
+        /// <param name="atom">The atom you want to know the distance</param>
+        /// <param name="sequence">The sequence of Atoms containing the two atoms</param>
+        /// <returns>Return the distance in number of atoms between the two atoms</returns>
+        public int DistanceDiscretized(Atom atom, List<Atom> sequence)
+        {
+            if (atom == null) throw new Exception("Null pointer parameter in atom");
+            if (atom.Serial == this.Serial) return 0;
+            Atom first = null;
+            int count = 0;
+            foreach (Atom a in sequence)
+            {
+                if (first != null) count++;
+                if (a.Serial == atom.serial)
+                {
+                    if (first == atom)
+                    {
+                        count = 0;
+                        continue;
+                    }
+                    if (first != null) return count; else first = atom;
+                }
+                if (a.Serial == this.Serial && first != this)
+                {
+                    if (first == this)
+                    {
+                        count = 0;
+                        continue;
+                    }
+                    if (first != null) return count; else first = this;
+                }
+            }
+            return int.MaxValue;
+        }
+
+        /// <summary>
         /// Return the AminoAcidName equivalent
         /// </summary>
         /// <returns>The equivalente AminoAcidName</returns>

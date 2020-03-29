@@ -406,7 +406,7 @@ namespace PDBReader
                             if (first) first = false; else file.Append(";");
                             foreach (Atom aj in atoms)
                             {
-                                if (ai.Distance(aj) < (double)tbDis.Value)
+                                if (isValidDistance(ai, aj))
                                     //file.Append(" {" + atomsSingle.IndexOf(ai) + ", " + atomsSingle.IndexOf(aj) + " " + ai.Distance(aj).ToString(new CultureInfo("en-US")) + "}");
                                     file.Append(" " + ai.Distance(aj).ToString(new CultureInfo("en-US")));
                                 else file.Append(" 0");
@@ -576,7 +576,7 @@ namespace PDBReader
                             }
                             for (int j = 0; j < i-3; j++)
                             {
-                                if ( atoms.ElementAt(i).Element == "H" && atoms.ElementAt(j).Element == "H" && validAtoms.IndexOf(atoms.ElementAt(j)) == -1 && atoms.ElementAt(j).Distance(atoms.ElementAt(i)) < (double)tbDis.Value)
+                                if ( atoms.ElementAt(i).Element == "H" && atoms.ElementAt(j).Element == "H" && validAtoms.IndexOf(atoms.ElementAt(j)) == -1 && isValidDistance(atoms.ElementAt(j), atoms.ElementAt(i)))
                                 {
                                     validAtoms.Add(atoms.ElementAt(j));
                                 }
@@ -698,7 +698,7 @@ namespace PDBReader
             {
                 if (a.Equals(atom)) continue;
                 if (validAtoms.Exists(temp => temp.Equals(a))) continue;
-                if (atom.Distance(a) < (double)tbDis.Value && (txtResId.Value == 0 || a.ResSeq == txtResId.Value))
+                if (isValidDistance(atom, a) && (txtResId.Value == 0 || a.ResSeq == txtResId.Value))
                 {
                     validAtoms.Add(a);
                 }
@@ -760,14 +760,14 @@ namespace PDBReader
             graphics.Clear(Color.Gray);
             graphics.DrawLine(new Pen(Color.Black), new Point(pnVisualization.Size.Width / 2, 0), new Point(pnVisualization.Size.Width / 2, pnVisualization.Size.Height));
             graphics.DrawLine(new Pen(Color.Black), new Point(0, pnVisualization.Size.Height / 2), new Point(pnVisualization.Size.Width, pnVisualization.Size.Height / 2));
-            graphics.DrawEllipse(new Pen(Color.Black), pnVisualization.Size.Width / 2 - (int)tbDis.Value * (int)tbScale.Value, pnVisualization.Size.Height / 2 - (int)tbDis.Value * (int)tbScale.Value, (int)tbDis.Value * 2 * (int)tbScale.Value, (int)tbDis.Value * 2 * (int)tbScale.Value);
+            if(!cbDiscretizableDis.Checked) graphics.DrawEllipse(new Pen(Color.Black), pnVisualization.Size.Width / 2 - (int)tbDis.Value * (int)tbScale.Value, pnVisualization.Size.Height / 2 - (int)tbDis.Value * (int)tbScale.Value, (int)tbDis.Value * 2 * (int)tbScale.Value, (int)tbDis.Value * 2 * (int)tbScale.Value);
             int t;
             if (tbScale.Value < 30) t = 2;
             else t = 3;
 
             foreach (var a in atoms)
             {
-                if (atom.Distance(a) < (double)tbDis.Value && (txtResId.Value == 0 || a.ResSeq == txtResId.Value))
+                if (isValidDistance(atom, a) && (txtResId.Value == 0 || a.ResSeq == txtResId.Value))
                 {
                     Pen p = null;
                     if (a.Element.Contains("H"))
@@ -824,7 +824,7 @@ namespace PDBReader
             List<Atom> neighbors = new List<Atom>();
             foreach (var a in atoms)
             {
-                if (!current.Equals(a) && current.Distance(a) < (double)tbDis.Value)
+                if (!current.Equals(a) && isValidDistance(current, a))
                 {
                     neighbors.Add(a);
                 }
@@ -886,7 +886,7 @@ namespace PDBReader
         }
 
         /// <summary>
-        /// Skip to the more near neighbor
+        /// Skip to the near neighbor
         /// </summary>
         private void btNear_Click(object sender, EventArgs e)
         {
@@ -902,7 +902,7 @@ namespace PDBReader
             List<Atom> neighbors = new List<Atom>();
             foreach (var a in atoms)
             {
-                if (!current.Equals(a) && current.Distance(a) < (double)tbDis.Value)
+                if (!current.Equals(a) && isValidDistance(current, a))
                 {
                     neighbors.Add(a);
                 }
@@ -931,7 +931,7 @@ namespace PDBReader
                 List<Atom> neighbors = new List<Atom>();
                 foreach (var a in atoms)
                 {
-                    if (!current.Equals(a) && current.Distance(a) < (double)tbDis.Value)
+                    if (!current.Equals(a) && isValidDistance(current, a))
                     {
                         neighbors.Add(a);
                     }
@@ -1156,6 +1156,35 @@ namespace PDBReader
                     
                 }
             }
+        }
+
+        private void cbDiscretizableDis_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbDiscretizableDis.Checked)
+            {
+                lbDis.Text = "Radium (Nr)";
+                tbDisAlt.Value = tbDis.Value;
+                tbDis.Visible = false;
+                tbDisAlt.Visible = true;
+            }
+            else
+            {
+                lbDis.Text = "Radium (Å)";
+                tbDis.Value = tbDisAlt.Value;
+                tbDis.Visible = true;
+                tbDisAlt.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// This functions returns if the distance between the two atoms is valid
+        /// </summary>
+        /// <param name="a">The first Atom</param>
+        /// <param name="b">The secound Atom</param>
+        /// <returns>True if the distance is valid or, otherwise, false</returns>
+        private bool isValidDistance(Atom a, Atom b)
+        {
+            return (cbDiscretizableDis.Checked) ? a.DistanceDiscretized(b, atoms) <= tbDisAlt.Value : a.Distance(b) <= (double)tbDis.Value;
         }
     }
 }

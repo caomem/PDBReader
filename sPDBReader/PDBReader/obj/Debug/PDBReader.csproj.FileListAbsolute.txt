@@ -28,3 +28,13 @@ G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\
 G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\Debug\PDBReader.csproj.CoreCompileInputs.cache
 G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\Debug\PDBReader.exe
 G:\escola\logica\C#\Projetos\IC\sPDBReader\repositorio\sPDBReader\PDBReader\obj\Debug\PDBReader.pdb
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\sPDBReader\PDBReader\bin\Debug\PDBReader.exe.config
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\sPDBReader\PDBReader\bin\Debug\PDBReader.exe
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\sPDBReader\PDBReader\bin\Debug\PDBReader.pdb
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\sPDBReader\PDBReader\obj\Debug\PDBReader.csprojAssemblyReference.cache
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\sPDBReader\PDBReader\obj\Debug\PDBReader.fMain.resources
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\sPDBReader\PDBReader\obj\Debug\PDBReader.Properties.Resources.resources
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\sPDBReader\PDBReader\obj\Debug\PDBReader.csproj.GenerateResource.cache
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\sPDBReader\PDBReader\obj\Debug\PDBReader.csproj.CoreCompileInputs.cache
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\sPDBReader\PDBReader\obj\Debug\PDBReader.exe
+G:\escola\logica\C#\Projetos\IC\sPDBReader\PDBReader\sPDBReader\PDBReader\obj\Debug\PDBReader.pdb

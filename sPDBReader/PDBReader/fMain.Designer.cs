@@ -60,10 +60,13 @@
             this.cbInstante = new System.Windows.Forms.CheckBox();
             this.cbBP = new System.Windows.Forms.CheckBox();
             this.cbToy = new System.Windows.Forms.CheckBox();
+            this.cbDiscretizableDis = new System.Windows.Forms.CheckBox();
+            this.tbDisAlt = new System.Windows.Forms.NumericUpDown();
             this.pnButton.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResId)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbDisAlt)).BeginInit();
             this.SuspendLayout();
             // 
             // pnButton
@@ -75,7 +78,7 @@
             this.pnButton.Controls.Add(this.btBefore);
             this.pnButton.Controls.Add(this.btOpen);
             this.pnButton.Controls.Add(this.btConvert);
-            this.pnButton.Location = new System.Drawing.Point(0, 155);
+            this.pnButton.Location = new System.Drawing.Point(-1, 196);
             this.pnButton.Name = "pnButton";
             this.pnButton.Size = new System.Drawing.Size(514, 49);
             this.pnButton.TabIndex = 0;
@@ -210,7 +213,7 @@
             this.pnVisualization.BackColor = System.Drawing.Color.Silver;
             this.pnVisualization.Location = new System.Drawing.Point(519, 9);
             this.pnVisualization.Name = "pnVisualization";
-            this.pnVisualization.Size = new System.Drawing.Size(200, 195);
+            this.pnVisualization.Size = new System.Drawing.Size(259, 236);
             this.pnVisualization.TabIndex = 7;
             this.pnVisualization.DoubleClick += new System.EventHandler(this.pnVisualization_DoubleClick);
             this.pnVisualization.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnVisualization_MouseDown);
@@ -347,7 +350,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(293, 133);
+            this.label3.Location = new System.Drawing.Point(69, 157);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 13);
             this.label3.TabIndex = 20;
@@ -356,7 +359,7 @@
             // 
             // txtResId
             // 
-            this.txtResId.Location = new System.Drawing.Point(342, 130);
+            this.txtResId.Location = new System.Drawing.Point(124, 155);
             this.txtResId.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -414,12 +417,38 @@
             this.cbToy.Text = "ToyProblem";
             this.cbToy.UseVisualStyleBackColor = true;
             // 
+            // cbDiscretizableDis
+            // 
+            this.cbDiscretizableDis.AutoSize = true;
+            this.cbDiscretizableDis.Location = new System.Drawing.Point(207, 154);
+            this.cbDiscretizableDis.Name = "cbDiscretizableDis";
+            this.cbDiscretizableDis.Size = new System.Drawing.Size(149, 17);
+            this.cbDiscretizableDis.TabIndex = 27;
+            this.cbDiscretizableDis.Text = "Discretize distance radium";
+            this.cbDiscretizableDis.UseVisualStyleBackColor = true;
+            this.cbDiscretizableDis.CheckedChanged += new System.EventHandler(this.cbDiscretizableDis_CheckedChanged);
+            // 
+            // tbDisAlt
+            // 
+            this.tbDisAlt.Location = new System.Drawing.Point(443, 79);
+            this.tbDisAlt.Name = "tbDisAlt";
+            this.tbDisAlt.Size = new System.Drawing.Size(52, 20);
+            this.tbDisAlt.TabIndex = 28;
+            this.tbDisAlt.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.tbDisAlt.Visible = false;
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(727, 213);
+            this.ClientSize = new System.Drawing.Size(790, 257);
+            this.Controls.Add(this.tbDisAlt);
+            this.Controls.Add(this.cbDiscretizableDis);
             this.Controls.Add(this.cbToy);
             this.Controls.Add(this.cbChainMark);
             this.Controls.Add(this.cbBP);
@@ -453,6 +482,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDis)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtResId)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbDisAlt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -491,6 +521,8 @@
         private System.Windows.Forms.CheckBox cbInstante;
         private System.Windows.Forms.CheckBox cbBP;
         private System.Windows.Forms.CheckBox cbToy;
+        private System.Windows.Forms.CheckBox cbDiscretizableDis;
+        private System.Windows.Forms.NumericUpDown tbDisAlt;
     }
 }
 
