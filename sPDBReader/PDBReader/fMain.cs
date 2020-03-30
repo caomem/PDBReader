@@ -64,7 +64,7 @@ namespace PDBReader
         private void btOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "PDB files (*.ent)|*.ent|All files (*.*)|*.*";
+            dialog.Filter = "PDB files (*.ent, *.pdb)|*.ent;*.pdb|All files (*.*)|*.*";
             dialog.InitialDirectory = "C:\\";
             dialog.Title = "Select a PDB file";
             if (dialog.ShowDialog() == DialogResult.OK)

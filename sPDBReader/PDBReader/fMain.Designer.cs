@@ -440,6 +440,7 @@
             0,
             0});
             this.tbDisAlt.Visible = false;
+            this.tbDisAlt.ValueChanged += new System.EventHandler(this.tbDis_ValueChanged);
             // 
             // fMain
             // 
