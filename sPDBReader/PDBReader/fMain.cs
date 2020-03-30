@@ -143,6 +143,11 @@ namespace PDBReader
                 foreach (var ex in exceptions)
                 {
                     MessageBox.Show(ex.ToString(), "Error " + ((++i).ToString()) + " when list the atoms in file");
+                    if (i > 9)
+                    {
+                        MessageBox.Show("And more "+(exceptions.Count-i)+" errors occured.","Errors occured when list the atoms in file");
+                        break;
+                    }
                 }
             }
 

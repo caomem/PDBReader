@@ -442,7 +442,7 @@
             0,
             0});
             this.tbDisAlt.Name = "tbDisAlt";
-            this.tbDisAlt.Size = new System.Drawing.Size(70, 20);
+            this.tbDisAlt.Size = new System.Drawing.Size(52, 20);
             this.tbDisAlt.TabIndex = 28;
             this.tbDisAlt.Value = new decimal(new int[] {
             3,
