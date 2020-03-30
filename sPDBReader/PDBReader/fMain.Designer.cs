@@ -197,7 +197,7 @@
             this.cbPDBFile.FormattingEnabled = true;
             this.cbPDBFile.Location = new System.Drawing.Point(124, 15);
             this.cbPDBFile.Name = "cbPDBFile";
-            this.cbPDBFile.Size = new System.Drawing.Size(350, 21);
+            this.cbPDBFile.Size = new System.Drawing.Size(389, 21);
             this.cbPDBFile.TabIndex = 5;
             // 
             // cbConvertFile
@@ -205,7 +205,7 @@
             this.cbConvertFile.FormattingEnabled = true;
             this.cbConvertFile.Location = new System.Drawing.Point(124, 53);
             this.cbConvertFile.Name = "cbConvertFile";
-            this.cbConvertFile.Size = new System.Drawing.Size(350, 21);
+            this.cbConvertFile.Size = new System.Drawing.Size(389, 21);
             this.cbConvertFile.TabIndex = 6;
             // 
             // pnVisualization
@@ -246,6 +246,11 @@
             // 
             this.tbDis.DecimalPlaces = 2;
             this.tbDis.Location = new System.Drawing.Point(443, 79);
+            this.tbDis.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.tbDis.Name = "tbDis";
             this.tbDis.Size = new System.Drawing.Size(52, 20);
             this.tbDis.TabIndex = 11;
@@ -431,8 +436,13 @@
             // tbDisAlt
             // 
             this.tbDisAlt.Location = new System.Drawing.Point(443, 79);
+            this.tbDisAlt.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.tbDisAlt.Name = "tbDisAlt";
-            this.tbDisAlt.Size = new System.Drawing.Size(52, 20);
+            this.tbDisAlt.Size = new System.Drawing.Size(70, 20);
             this.tbDisAlt.TabIndex = 28;
             this.tbDisAlt.Value = new decimal(new int[] {
             3,
