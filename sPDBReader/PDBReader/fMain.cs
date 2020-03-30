@@ -110,17 +110,11 @@ namespace PDBReader
                     try
                     {
                         a.Serial = int.Parse(text[i].Substring(6, 5));
-                        foreach (var aux in atoms) //não repetir models
-                        {
-                            if (a.Serial == aux.Serial)
+                        if (!cbToy.Checked) // Accept repeted atoms in toy problems
+                            foreach (var aux in atoms) //don't repeat atoms (other models will also not be read)
                             {
-                                if (cbToy.Checked) // aceitar repeticao em toyproblem
-                                {
-                                    atoms.Add(aux);
-                                }
-                                goto end;
+                                if (a.Serial == aux.Serial) goto end;
                             }
-                        }
                         a.Name = text[i].Substring(12, 4).Trim();
                         a.AltLoc = text[i].Length > 16 ? text[i][16] : ' ';
                         a.ResName = text[i].Substring(17, 3);

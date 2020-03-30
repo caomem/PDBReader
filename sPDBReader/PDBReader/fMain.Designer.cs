@@ -410,11 +410,11 @@
             // cbToy
             // 
             this.cbToy.AutoSize = true;
-            this.cbToy.Location = new System.Drawing.Point(392, 131);
+            this.cbToy.Location = new System.Drawing.Point(304, 131);
             this.cbToy.Name = "cbToy";
-            this.cbToy.Size = new System.Drawing.Size(82, 17);
+            this.cbToy.Size = new System.Drawing.Size(163, 17);
             this.cbToy.TabIndex = 26;
-            this.cbToy.Text = "ToyProblem";
+            this.cbToy.Text = "Toy (Accept Repeted Atoms)";
             this.cbToy.UseVisualStyleBackColor = true;
             // 
             // cbDiscretizableDis
