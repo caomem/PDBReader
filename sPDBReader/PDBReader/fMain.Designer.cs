@@ -319,7 +319,7 @@
             "MolConf",
             "xyz",
             "MD-jeep",
-            "VirtualNode"});
+            "VirtualOrder"});
             this.cbOutput.Location = new System.Drawing.Point(124, 105);
             this.cbOutput.Name = "cbOutput";
             this.cbOutput.Size = new System.Drawing.Size(79, 21);

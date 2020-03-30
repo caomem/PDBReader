@@ -359,7 +359,7 @@ namespace PDBReader
                 graphics.Clear(Color.Gray);
 
                 if (string.IsNullOrWhiteSpace(cbConvertFile.Text)) return;
-                if (cbOutput.SelectedItem == cbOutput.Items[0])
+                if (cbOutput.SelectedItem == cbOutput.Items[0]) //XML
                 {
                     if (cbBP.Checked)
                     {
@@ -382,7 +382,7 @@ namespace PDBReader
                         MessageBox.Show(ex.ToString());
                     }
                 }
-                else if (cbOutput.SelectedItem == cbOutput.Items[1])
+                else if (cbOutput.SelectedItem == cbOutput.Items[1]) // MATRIX
                 {
                     if (cbBP.Checked)
                     {
@@ -423,7 +423,7 @@ namespace PDBReader
                         File.WriteAllText(cbConvertFile.Text, file.ToString());
                     }
                 }
-                else if (cbOutput.SelectedItem == cbOutput.Items[2])
+                else if (cbOutput.SelectedItem == cbOutput.Items[2]) // JSON
                 {
                     if (cbBP.Checked)
                     {
@@ -472,7 +472,7 @@ namespace PDBReader
                         File.WriteAllText(cbConvertFile.Text, file.ToString());
                     }
                 }
-                else if (cbOutput.SelectedItem == cbOutput.Items[3])
+                else if (cbOutput.SelectedItem == cbOutput.Items[3]) // MOLECULAR CONFORMATION
                 {
                     if (cbBP.Checked)
                     {
@@ -508,7 +508,7 @@ namespace PDBReader
                         File.WriteAllText(cbConvertFile.Text, file.ToString());
                     }
                 }
-                else if (cbOutput.SelectedItem == cbOutput.Items[4])
+                else if (cbOutput.SelectedItem == cbOutput.Items[4]) // XYZ
                 {
                     if (cbBP.Checked)
                     {
@@ -532,7 +532,7 @@ namespace PDBReader
                         File.WriteAllText(cbConvertFile.Text, file.ToString());
                     }
                 }
-                else if (cbOutput.SelectedItem == cbOutput.Items[5])
+                else if (cbOutput.SelectedItem == cbOutput.Items[5]) // MD-Jeep
                 {
                     if (!cbBP.Checked)
                     {
@@ -614,7 +614,7 @@ namespace PDBReader
 
                     File.WriteAllText(cbConvertFile.Text, file.ToString());
                 }
-                else if (cbOutput.SelectedItem == cbOutput.Items[6])
+                else if (cbOutput.SelectedItem == cbOutput.Items[6]) // Virtual Order
                 {
                     if (cbBP.Checked)
                     {
